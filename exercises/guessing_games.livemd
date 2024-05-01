@@ -51,7 +51,10 @@ Ensure your solutions works for both an incorrect and correct player guess.
 Enter your solution below.
 
 ```elixir
+answer = "Phoenix"
+guess = "Elixir"
 
+(guess == answer && "Correct!") || "Incorrect..."
 ```
 
 ## Bonus: Guess The Random Word
@@ -83,7 +86,10 @@ Armed with this knowledge, you're going to create a word guessing game.
 Enter your solution below.
 
 ```elixir
+answer = Enum.random(["hello", "hi", "howdy"])
+guess = "hello"
 
+(guess == answer && "Correct!") || "Incorrect"
 ```
 
 ## Bonus: Guess The Number
@@ -135,7 +141,17 @@ Now let's build a number guessing game
 Enter your solution below.
 
 ```elixir
+answer = Enum.random(1..10)
+guess = 5
 
+IO.inspect(answer)
+
+cond do
+  answer == guess -> "Correct!"
+  answer < guess -> "Too Low!"
+  answer > guess -> "Too High!"
+  true -> "Something is missing!"
+end
 ```
 
 ## Commit Your Progress

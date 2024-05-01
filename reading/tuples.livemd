@@ -80,7 +80,7 @@ the second element.
 </details>
 
 ```elixir
-
+{:ok, "got it!"}
 ```
 
 ## Pattern Matching
@@ -160,7 +160,9 @@ jewel
 </details>
 
 ```elixir
-{"gold", "treasure", "jewel"}
+{gold, treasure, jewel} = {"gold", "treasure", "jewel"}
+jewel = "diamond"
+{gold, treasure, jewel} = {"gold", "treasure", "jewel"}
 ```
 
 ## Further Reading

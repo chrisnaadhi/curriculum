@@ -80,7 +80,7 @@ In the Elixir cell below, create a string `"Hello, world!"`. This is a rite of p
 programmer.
 
 ```elixir
-
+"Hello, world!"
 ```
 
 ## Multiline Strings
@@ -119,7 +119,7 @@ Only strings can be concatenated together using the `<>` operator. You'll notice
 This error occurs because we're asking the computer to concatenate a string with an integer.
 
 ```elixir
-"hello" <> 1
+"hello" <> "1"
 ```
 
 ### Your Turn
@@ -141,7 +141,7 @@ Replace `nil` with your answer.
 </details>
 
 ```elixir
-
+"Hi " <> "Chrisna!"
 ```
 
 ### String Interpolation
@@ -181,7 +181,8 @@ In the Elixir cell below, use **string interpolation** to say `I have #{X - 1} c
 </details>
 
 ```elixir
-answer = nil
+answer = 20
+"I have #{answer - 10} classmates"
 ```
 
 ## Escaping Characters
