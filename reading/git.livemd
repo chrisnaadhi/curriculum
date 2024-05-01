@@ -422,7 +422,7 @@ It's convenient and fast. However, it lacks any review system for code changes. 
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Dev -> -> QA -> Staging -> Prod Pipelines
+### Dev -> QA -> Staging -> Prod Pipelines
 
 Some companies will have many stages of review for changes.
 

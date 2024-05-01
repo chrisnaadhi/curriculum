@@ -83,6 +83,15 @@ Markdown is everywhere! It's even valid input for chat apps like Slack and Disco
 
 Livebooks are split into **cells**. There are **markdown cells** for formatted text, and **elixir cells** for Elixir code. There are also more advanced cells that are beyond the scope of this course.
 
+Seems like it was intended :
+
+<!-- livebook:{"force_markdown":true} -->
+
+```elixir
+my_books = ["One Things", "Two Things"]
+my_books |> Enum.map(fn x -> IO.puts x end)
+```
+
 <!-- livebook:{"break_markdown":true} -->
 
 ### Markdown Cells
@@ -121,7 +130,12 @@ Livebook may change this UI, so if this is instruction is no longer accurate ple
 
 Create an Elixir code cell below. Run some Elixir code such as `1 + 2` in the cell.
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+value1 = 1
+value2 = 2
+
+value1 + value2
+```
 
 ### Livebook Shortcuts
 
@@ -151,7 +165,7 @@ to see the Markdown content inside.
 
 <!-- livebook:{"break_markdown":true} -->
 
-<div style="padding: 1rem;background-color:lightgray; text-align: center;">
+<div style="padding: 1rem;background-color:cyan; text-align: center;">
 
 ### Click Me Then Press Edit<i Class="ri-pencil-line"></i>
 
@@ -176,8 +190,13 @@ In Elixir, the last value will always be the return value
 For example, this cell returns `10`, not `5`.
 
 ```elixir
-5
-10
+# 5
+# 10
+sepuluh = 10
+
+sepuluh_by_add = 5 + 5
+lima_by_multiply = 5 * 1
+sepuluh == lima_by_multiply
 ```
 
 As you complete reading material, you're expected to evaluate cells to see their output. Alternatively, you can press `ea` to evaluate every cell in a Livebook.
