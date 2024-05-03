@@ -70,6 +70,8 @@ defmodule ModuleName do
     "return value"
   end
 end
+
+ModuleName.function_name()
 ```
 
 Let's break down the named function above.
@@ -120,7 +122,7 @@ end
 Call the `MutliParamExample.call/3` function with different arguments.
 
 ```elixir
-
+MultiParamExample.call("Hello", "World", "Great!")
 ```
 
 ## Internal Module Functions
@@ -230,7 +232,7 @@ HigherOrder.higher_order_function(&Callback.callback_function/0)
 Notice we cannot simply pass `Callback.callback_function` as an argument.
 
 ```elixir
-HigherOrder.higher_order_function(Callback.callback_function())
+HigherOrder.higher_order_function(&Callback.callback_function/0)
 ```
 
 Alternatively, we can wrap the callback function in an anonymous function.
@@ -318,7 +320,13 @@ end
 Enter your solution below.
 
 ```elixir
+defmodule Languages.Indonesia do
+  def greeting do
+    "Hai"
+  end
+end
 
+Languages.Indonesia.greeting()
 ```
 
 ### Nested Modules
@@ -334,6 +342,14 @@ defmodule NestedLanguages do
   end
 
   defmodule Spanish do
+    @moduledoc """
+      Spanish Module
+    """
+    @moduledoc since: "1.0.0"
+
+    @doc """
+    Greeting in Spanish
+    """
     def greeting do
       "Hola"
     end
@@ -516,7 +532,17 @@ end
 </details>
 
 ```elixir
+defmodule Math do
+  def add(x, y) do
+    x + y
+  end
 
+  def add(x, y, z) do
+    x + y + z
+  end
+end
+
+Math.add(1, 2, 3)
 ```
 
 ## Default Arguments
@@ -583,7 +609,13 @@ Greeting.hello("Andrew")
 ```
 
 ```elixir
+defmodule Greeting do
+  def hello(name \\ "Jon") do
+    "Hello #{name}!"
+  end
+end
 
+Greeting.hello("Andrew")
 ```
 
 ## Documentation
@@ -696,25 +728,25 @@ If this is the case, you either have to fix your code, or remove/comment the cra
 Uncomment the following code and evaluate the cell to see an example. Re-comment your code to avoid crashing the livebook as you continue with the lesson.
 
 ```elixir
-# defmodule DoctestCrash Do
-# @moduledoc """
-# DoctestCrash
+defmodule DoctestCrash do
+  @moduledoc """
+  DoctestCrash
 
-# Explains Doctest Crashes With Examples
-# """
+  Explains Doctest Crashes With Examples
+  """
 
-# @doc """
-# Purposely Crashes Doctest Using Invalid Pattern Matching
+  @doc """
+  Purposely Crashes Doctest Using Invalid Pattern Matching
 
-# ## Examples
+  ## Examples
 
-# iex> {} = DoctestCrash.crash()
-# "2"
-# """
-# def crash do
-
-# end
-# end
+  iex> {} = DoctestCrash.crash()
+  {}
+  """
+  def crash do
+    {}
+  end
+end
 ```
 
 ### Your Turn
