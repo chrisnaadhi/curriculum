@@ -133,7 +133,13 @@ end
 Enter your solution below.
 
 ```elixir
+temperature = Enum.random(0..20)
 
+if temperature > 10 do
+  :hot
+else
+  :cold
+end
 ```
 
 ## Clear Control Flow
@@ -378,9 +384,9 @@ end
 Return each result from `1` to `5` by changing the `condition` variable below.
 
 ```elixir
-condition = nil
+condition = [1, 2, 3]
 
-case condition do
+case %{key1: :any, key2: "Two"} do
   [1, 2, 3] -> 1
   [_head | _tail] -> 2
   {_, _} -> 3
