@@ -120,6 +120,7 @@ Use [Kernel.elem/2](https://hexdocs.pm/elixir/Kernel.html#elem/2) to retrieve `1
 
 ```elixir
 tuple = {0, 4, 1, 100, 5, 7}
+elem(tuple, 3)
 ```
 
 ## Checking Types
@@ -161,31 +162,31 @@ is_atom(:example)
 ```
 
 ```elixir
-%{}
+is_map(%{})
 ```
 
 ```elixir
-{}
+is_tuple({})
 ```
 
 ```elixir
-[]
+is_list([])
 ```
 
 ```elixir
-true
+is_boolean(true)
 ```
 
 ```elixir
-1.0
+is_float(1.0)
 ```
 
 ```elixir
-1
+is_integer(1)
 ```
 
 ```elixir
-""
+is_binary("")
 ```
 
 The [Kernel](https://hexdocs.pm/elixir/Kernel.html) is reasonably large. Remember, our goal is not to memorize every function but to develop familiarity with repeated practice.
@@ -226,7 +227,7 @@ Enter your solution below. if `seconds` is less than `0` `capped_seconds` should
 
 ```elixir
 seconds = 60
-capped_seconds = nil
+capped_seconds = max(min(seconds, 59), 0)
 ```
 
 ## Safe Inspection
@@ -276,7 +277,7 @@ map = %{}
 list = [1, 2, 3]
 tuple = {1, 2, 3}
 
-""
+"#{inspect(tuple)}"
 ```
 
 ## The Integer Module
@@ -357,7 +358,7 @@ Use the [Integer.gcd/2](https://hexdocs.pm/elixir/Integer.html#gcd/2) function t
 positive integer that divides both 10 and 15 evenly, so the result should be `5`.
 
 ```elixir
-
+Integer.gcd(10, 15)
 ```
 
 ## The String Module
@@ -439,7 +440,7 @@ Use the [String.at/2](https://hexdocs.pm/elixir/String.html#at/2) function to ge
 </details>
 
 ```elixir
-"hello"
+String.at("hello", 2)
 ```
 
 Use the [String.at/2](https://hexdocs.pm/elixir/String.html#at/2) function to retrieve the letter `"o"` in `"hello"`
@@ -455,7 +456,7 @@ Use the [String.at/2](https://hexdocs.pm/elixir/String.html#at/2) function to re
 </details>
 
 ```elixir
-"hello"
+String.at("hello", 4)
 ```
 
 Use the [String.contains?/2](https://hexdocs.pm/elixir/String.html#contains?/2) function to determine if `"hello"` contains `"lo"`. The result should be `true`.
@@ -471,7 +472,7 @@ Use the [String.contains?/2](https://hexdocs.pm/elixir/String.html#contains?/2) 
 </details>
 
 ```elixir
-"Hello"
+String.contains?("Hello", "lo")
 ```
 
 Use [String.capitalize/2](https://hexdocs.pm/elixir/String.html#capitalize/2) to capitalize `"hello"` to `"Hello"`.
@@ -487,7 +488,7 @@ Use [String.capitalize/2](https://hexdocs.pm/elixir/String.html#capitalize/2) to
 </details>
 
 ```elixir
-"hello"
+"hello" |> String.capitalize()
 ```
 
 Use [String.upcase/2](https://hexdocs.pm/elixir/String.html#upcase/2) to upcase `"hello"` to `"HELLO"`.
@@ -503,7 +504,7 @@ Use [String.upcase/2](https://hexdocs.pm/elixir/String.html#upcase/2) to upcase 
 </details>
 
 ```elixir
-"hello"
+"hello" |> String.upcase()
 ```
 
 Use [String.downcase/2](https://hexdocs.pm/elixir/String.html#downcase/2) to dowcase `"HELLO"` to `"hello"`.
@@ -519,7 +520,7 @@ Use [String.downcase/2](https://hexdocs.pm/elixir/String.html#downcase/2) to dow
 </details>
 
 ```elixir
-"HELLO"
+"HELLO" |> String.downcase()
 ```
 
 Use [String.split/3](https://hexdocs.pm/elixir/String.html#split/3) to split the following comma-separated list of strings into a list of words.
@@ -535,7 +536,7 @@ Use [String.split/3](https://hexdocs.pm/elixir/String.html#split/3) to split the
 </details>
 
 ```elixir
-"have,a,great,day"
+"have,a,great,day" |> String.split(",")
 ```
 
 Use [String.trim/1](https://hexdocs.pm/elixir/String.html#trim/1) to remove whitespace from the `"  hello!  "` string.
@@ -551,7 +552,7 @@ Use [String.trim/1](https://hexdocs.pm/elixir/String.html#trim/1) to remove whit
 </details>
 
 ```elixir
-"  hello!  "
+"  hello!  " |> String.trim()
 ```
 
 ## The List Module
