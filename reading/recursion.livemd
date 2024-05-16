@@ -82,7 +82,7 @@ flowchart LR
 
 Computerphile explains recursion in excellent detail.
 
-<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=Mv9NEXX1VHc\")","title":"Computerphile: Recursion"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":"eyJzb3VyY2UiOiJZb3VUdWJlLm5ldyhcImh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9TXY5TkVYWDFWSGNcIikiLCJ0aXRsZSI6IkNvbXB1dGVycGhpbGU6IFJlY3Vyc2lvbiJ9","chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 YouTube.new("https://www.youtube.com/watch?v=Mv9NEXX1VHc")
@@ -260,6 +260,12 @@ end
 
 ```elixir
 defmodule CountDown do
+  def count(0), do: IO.puts(0)
+
+  def count(val) do
+    IO.puts(val)
+    count(val - 1)
+  end
 end
 ```
 
@@ -323,7 +329,20 @@ end
 
 ```elixir
 defmodule CountBetween do
+  def count(finish, finish), do: IO.puts(finish)
+
+  def count(start, finish) when start < finish do
+    IO.puts(start)
+    count(start + 1, finish)
+  end
+
+  def count(start, finish) when start > finish do
+    IO.puts(start)
+    count(start - 1, finish)
+  end
 end
+
+CountBetween.count(10, 15)
 ```
 
 ## Commit Your Progress
