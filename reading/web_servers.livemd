@@ -162,7 +162,8 @@ defmodule WebServer do
   end
 end
 
-WebServer.start(4000)
+WebServer.start(5551)
+IO.puts("Started on 5551")
 ```
 
 This server will remain open indefinitely and recursively call `accept/2` every time a new client connects to the socket on port `4000`.

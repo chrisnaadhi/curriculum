@@ -49,39 +49,48 @@ jewel
 Use pattern matching to bind a `jewel` variable to the `"jewel"` string. Each cell should return the `jewel` variable to prove it was bound correctly.
 
 ```elixir
-[1, 2, 3, "jewel"]
+[_, _, _, jewel] = [1, 2, 3, "jewel"]
+jewel
 ```
 
 ```elixir
-%{key1: "value", key2: "jewel"}
+%{key1: key, key2: jewel} = %{key1: "value", key2: "jewel"}
+jewel
 ```
 
 ```elixir
-%{1 => "jewel"}
+%{1 => jewel} = %{1 => "jewel"}
+jewel
 ```
 
 ```elixir
-%{%{key: [1, 2, 3, 4, 5, {}]} => "jewel"}
+%{%{key: [1, 2, 3, 4, 5, {}]} => jewel} = %{%{key: [1, 2, 3, 4, 5, {}]} => "jewel"}
+jewel
 ```
 
 ```elixir
-%{north: %{south: %{west: %{east: "jewel"}}}}
+map_guide = %{north: %{south: %{west: %{east: "jewel"}}}}
+map_guide.north.south.west.east
 ```
 
 ```elixir
-[2, "jewel"]
+[_, jewel] = [2, "jewel"]
+jewel
 ```
 
 ```elixir
-["jewel", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+[jewel | numbering] = ["jewel", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+jewel
 ```
 
 ```elixir
-[1, "jewel", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+compleks = [1, "jewel", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+Enum.at(compleks, 1)
 ```
 
 ```elixir
-[1, 2, "jewel", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+find_jewel = [1, 2, "jewel", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+Enum.at(find_jewel, 2)
 ```
 
 ```elixir
@@ -154,7 +163,12 @@ defmodule Sum do
   iex> Sum.list([1, 2, 3])
   6
   """
+  def list(list, sum \\ 0)
+  def list([], sum), do: sum
+  def list([head | tail], sum), do: list(tail, sum + head)
 end
+
+Sum.list([1, 2, 3])
 ```
 
 ## Commit Your Progress

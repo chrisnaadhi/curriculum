@@ -45,7 +45,7 @@ Databases store long-term information in a program. There are many kinds of data
 
 Here's a great primer by Linux Academy.
 
-<!-- livebook:{"attrs":"eyJzb3VyY2UiOiJZb3VUdWJlLm5ldyhcImh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9VGsxdDNXS0stWllcIikiLCJ0aXRsZSI6IlBvc3RncmVTUUwifQ","chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=Tk1t3WKK-ZY\")","title":"PostgreSQL"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 YouTube.new("https://www.youtube.com/watch?v=Tk1t3WKK-ZY")
@@ -125,6 +125,51 @@ Close the prompt with `\q`.
 postgres-# \q
 ```
 
+## Postgres Command Line Tool (psql)
+
+We can manually interact with our database using the `psql` command-line tool.
+
+For the sake of simplicity, we'll switch to the postgres user to avoid any authentication issues. After this lesson, you can switch to your normal user by running `exit` from the terminal (after exiting the PostgreSQL prompt).
+
+```
+$ sudo -i -u postgres
+```
+
+Create a database using the `createdb` command. We'll call the database `example`.
+
+```
+$ createdb example
+```
+
+Run the `psql` command to open the PostgreSQL prompt.
+
+```
+$ psql
+postgres-#
+```
+
+We can view our databases using the `\l` command.
+
+```
+postgres-# \l
+```
+
+You should see a table with your PostgreSQL databases.
+
+```sql
+                                     List of databases
+          Name           |  Owner   | Encoding | Collate |  Ctype  |   Access privileges
+-------------------------+----------+----------+---------+---------+-----------------------
+ example                 | postgres | UTF8     | C.UTF-8 | C.UTF-8 |
+```
+
+We can use the `\c` command to connect to the `example` database.
+
+```
+postgres-# \c example
+You are now connected to database "example" as user "postgres".
+```
+
 ## Debugging
 
 Unfortunately, It's common to run into issues when setting up PostgreSQL. Every student
@@ -177,58 +222,13 @@ $ psql
 postgres-#
 ```
 
-## Postgres Command Line Tool (psql)
-
-We can manually interact with our database using the `psql` command-line tool.
-
-For the sake of simplicity, we'll switch to the postgres user to avoid any authentication issues. After this lesson, you can switch to your normal user by running `exit` from the terminal (after exiting the PostgreSQL prompt).
-
-```
-$ sudo -i -u postgres
-```
-
-Create a database using the `createdb` command. We'll call the database `example`.
-
-```
-$ createdb example
-```
-
-Run the `psql` command to open the PostgreSQL prompt.
-
-```
-$ psql
-postgres-#
-```
-
-We can view our databases using the `\l` command.
-
-```
-postgres-# \l
-```
-
-You should see a table with your PostgreSQL databases.
-
-```sql
-                                     List of databases
-          Name           |  Owner   | Encoding | Collate |  Ctype  |   Access privileges
--------------------------+----------+----------+---------+---------+-----------------------
- example                 | postgres | UTF8     | C.UTF-8 | C.UTF-8 |
-```
-
-We can use the `\c` command to connect to the `example` database.
-
-```
-postgres-# \c example
-You are now connected to database "example" as user "postgres".
-```
-
 ## SQL
 
 Now that we're connected to the database. We can use a Structured Query Language (SQL) to read and write data to the database.
 
 For a primer on SQL syntax, here's a great video by Danielle Thé.
 
-<!-- livebook:{"attrs":"eyJzb3VyY2UiOiJZb3VUdWJlLm5ldyhcImh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9MjdheHM5ZE83QUVcIikiLCJ0aXRsZSI6IlNRTCJ9","chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=27axs9dO7AE\")","title":"SQL"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 YouTube.new("https://www.youtube.com/watch?v=27axs9dO7AE")
@@ -384,7 +384,7 @@ We can then use [SQL Comparison Operators](https://www.sqltutorial.org/sql-compa
 
 Livebook provides [Smart Cells](https://www.youtube.com/watch?v=4hVIxyHxwK8&ab_channel=ElixirConf) which can connect to our PostgreSQL Database. For example, the following smart cell should successfully connect to your `example` database if you used the default `postgres` user.
 
-<!-- livebook:{"attrs":"eyJkYXRhYmFzZSI6ImV4YW1wbGUiLCJob3N0bmFtZSI6ImxvY2FsaG9zdCIsInBhc3N3b3JkIjoicG9zdGdyZXMiLCJwb3J0Ijo1NDMyLCJ0eXBlIjoicG9zdGdyZXMiLCJ1c2VybmFtZSI6InBvc3RncmVzIiwidmFyaWFibGUiOiJjb25uIn0","chunks":null,"kind":"Elixir.KinoDB.ConnectionCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"database":"example","hostname":"localhost","password":"postgres","port":5432,"type":"postgres","username":"postgres","variable":"conn"},"chunks":null,"kind":"Elixir.KinoDB.ConnectionCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 opts = [
@@ -400,10 +400,10 @@ opts = [
 
 Once connected, these smart cells can make SQL queries to our database. Here you should see your users table.
 
-<!-- livebook:{"attrs":"eyJjb25uZWN0aW9uIjp7InR5cGUiOiJwb3N0Z3JlcyIsInZhcmlhYmxlIjoiY29ubiJ9LCJxdWVyeSI6InNlbGVjdCAqIGZyb20gdXNlcnMiLCJyZXN1bHRfdmFyaWFibGUiOiJyZXN1bHQyIiwidGltZW91dCI6bnVsbH0","chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn"},"query":"select * from entries","result_variable":"result2","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
 
 ```elixir
-result2 = Postgrex.query!(conn, "select * from users", [])
+result2 = Postgrex.query!(conn, "select * from entries", [])
 ```
 
 ### Your Turn
@@ -412,18 +412,23 @@ result2 = Postgrex.query!(conn, "select * from users", [])
 
 Use the following SQL smart cell to create a new user in the users table. Re-evaluate the smart cell above to see the new user in the table.
 
-<!-- livebook:{"attrs":"eyJjYWNoZV9xdWVyeSI6dHJ1ZSwiY29ubmVjdGlvbiI6eyJ0eXBlIjoicG9zdGdyZXMiLCJ2YXJpYWJsZSI6ImNvbm4ifSwicXVlcnkiOiIiLCJyZXN1bHRfdmFyaWFibGUiOiJyZXN1bHQzIiwidGltZW91dCI6bnVsbH0","chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn"},"query":"INSERT INTO users (ID, NAME, EMAIL) VALUES (3, 'Peter Parker', 'parker@spider.web');","result_variable":"result3","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
 
 ```elixir
-result3 = Postgrex.query!(conn, "", [])
+result3 =
+  Postgrex.query!(
+    conn,
+    "INSERT INTO users (ID, NAME, EMAIL) VALUES (3, 'Peter Parker', 'parker@spider.web');",
+    []
+  )
 ```
 
 Use the following SQL smart cell to create a new entry in the entries table, which has a foreign key to the same user you previously created.
 
-<!-- livebook:{"attrs":"eyJjb25uZWN0aW9uIjp7InR5cGUiOiJwb3N0Z3JlcyIsInZhcmlhYmxlIjoiY29ubiJ9LCJxdWVyeSI6IiIsInJlc3VsdF92YXJpYWJsZSI6InJlc3VsdDQiLCJ0aW1lb3V0IjpudWxsfQ","chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn"},"query":"select * from entries","result_variable":"result4","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
 
 ```elixir
-result4 = Postgrex.query!(conn, "", [])
+result4 = Postgrex.query!(conn, "select * from entries", [])
 ```
 
 ## Relationships

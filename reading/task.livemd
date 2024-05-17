@@ -63,7 +63,7 @@ We can use [Task.start/1](https://hexdocs.pm/elixir/Task.html#start/1) to create
 {:ok, task_pid} = Task.start(fn -> IO.puts("task ran!") end)
 
 IO.puts("Parent keeps running")
-Process.sleep(100)
+Process.sleep(10000)
 Process.alive?(task_pid) || IO.puts("task is dead")
 ```
 

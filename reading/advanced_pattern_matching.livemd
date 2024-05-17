@@ -152,7 +152,9 @@ We can use the match operator anytime we have a value bound to a parameter or va
 Create a `case` statement that will return the first element in a 2 element tuple, or the first element in 2 element a list.
 
 ```elixir
-
+case [1, 2] do
+  [_head, _tail] = list -> list |> Enum.reduce(fn x, a -> x + a end)
+end
 ```
 
 Use pattern matching to ensure the `Check.must_have_elements!/1` function returns true when called with a list that has more than one element and otherwise causes a [FunctionClauseError](https://hexdocs.pm/elixir/FunctionClauseError.html).
@@ -186,7 +188,7 @@ defmodule Check do
       iex> Check.must_have_elements!([])
       ** (FunctionClauseError) no function clause matching in Check.must_have_elements!/1
   """
-  def must_have_elements!(list) do
+  def must_have_elements!([_head | _tail] = list) do
     true
   end
 end
@@ -292,6 +294,11 @@ defmodule Greeter do
       "Hello everyone!"
   """
   def hello(names) do
+    case names do
+      [first] -> "Hi #{first}!"
+      [first, second] -> "Hi #{first}, Hello #{second}!"
+      _ -> "Hello everyone!"
+    end
   end
 end
 ```
@@ -354,7 +361,10 @@ end)
 </details>
 
 ```elixir
-
+Enum.map([{:double, 2}, {:halve, 10}, {:double, 4}], fn
+  {:double, integer} -> integer * 2
+  {:halve, integer} -> div(integer, 2)
+end)
 ```
 
 ## Pattern Matching Vs. If
@@ -483,9 +493,9 @@ We'll also use the pin operator when triggering control flow with pattern matchi
 ```elixir
 pinned_value = 1
 
-case {:ok, 1} do
-  {:ok, ^pinned_value} -> "clause 1"
-  {:ok, generic_value} -> "clause 2"
+case {:ok, 2} do
+  {:ok, ^pinned_value} -> "clause 1 #{pinned_value}"
+  {:ok, generic_value} -> "clause 2 #{generic_value}"
 end
 ```
 
@@ -523,7 +533,7 @@ actual = {"hello", "hi"}
 expected = {"hello"}
 actual = {"hello", "hi"}
 
-expected = actual
+^expected = actual
 ```
 
 ## Further Reading
