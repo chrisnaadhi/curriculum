@@ -94,7 +94,9 @@ end
 
 </details>
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+
+```
 
 ### Context Functions
 

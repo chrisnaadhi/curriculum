@@ -3,9 +3,19 @@ defmodule BlogWeb.PostControllerTest do
 
   import Blog.PostsFixtures
 
-  @create_attrs %{title: "some title", body: "some body"}
-  @update_attrs %{title: "some updated title", body: "some updated body"}
-  @invalid_attrs %{title: nil, body: nil}
+  @create_attrs %{
+    title: "some title",
+    published_on: ~D[2024-05-24],
+    content: "some content",
+    visibility: true
+  }
+  @update_attrs %{
+    title: "some updated title",
+    published_on: ~D[2024-05-29],
+    content: "some updated content",
+    visibility: false
+  }
+  @invalid_attrs %{title: nil, published_on: nil, content: nil, visbility: nil}
 
   describe "index" do
     test "lists all posts", %{conn: conn} do
@@ -71,9 +81,9 @@ defmodule BlogWeb.PostControllerTest do
       conn = delete(conn, ~p"/posts/#{post}")
       assert redirected_to(conn) == ~p"/posts"
 
-      assert_error_sent 404, fn ->
+      assert_error_sent(404, fn ->
         get(conn, ~p"/posts/#{post}")
-      end
+      end)
     end
   end
 

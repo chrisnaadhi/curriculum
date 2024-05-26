@@ -6,6 +6,7 @@ defmodule Blog.Posts do
   import Ecto.Query, warn: false
   alias Blog.Repo
 
+  alias Blog.Comments.Comment
   alias Blog.Posts.Post
 
   @doc """
@@ -19,6 +20,13 @@ defmodule Blog.Posts do
   """
   def list_posts do
     Repo.all(Post)
+  end
+
+  def list_filtered_posts do
+    today = Date.utc_today()
+    query = from(p in Post, where: p.visibility == true and p.published_on <= ^today)
+
+    Repo.all(query)
   end
 
   @doc """
@@ -54,7 +62,18 @@ defmodule Blog.Posts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id) do
+    comments_query =
+      from(c in Comment, order_by: [desc: c.inserted_at, desc: c.id], preload: :user)
+
+    post_query = from(p in Post, preload: [:user, comments: ^comments_query])
+
+    Repo.get!(post_query, id)
+  end
+
+  def get_post_with_comments(id) do
+    from(p in Post, preload: [:comments]) |> Repo.get!(id)
+  end
 
   @doc """
   Creates a post.

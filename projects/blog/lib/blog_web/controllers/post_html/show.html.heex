@@ -2,15 +2,85 @@
   Post <%= @post.id %>
   <:subtitle>This is a post record from your database.</:subtitle>
   <:actions>
-    <.link href={~p"/posts/#{@post}/edit"}>
-      <.button>Edit post</.button>
-    </.link>
+    <%= if assigns[:current_user] && @post.user_id === @current_user.id do %>
+      <.link href={~p"/posts/#{@post}/edit"}>
+        <.button>Edit post</.button>
+      </.link>
+    <% end %>
   </:actions>
 </.header>
-
+ <p class="text-gray-400 text-sm italic">Created by <%= @post.user.username %></p>
 <.list>
   <:item title="Title"><%= @post.title %></:item>
-  <:item title="Body"><%= @post.body %></:item>
+  <:item title="Content"><%= @post.content %></:item>
+  <:item title="Published On"><%= @post.published_on %></:item>
+  <:item title="Visibility"><%= @post.visibility %></:item>
+  <:item title="Creator"><%= @post.user.username %></:item>
 </.list>
 
 <.back navigate={~p"/posts"}>Back to posts</.back>
+
+<%= if assigns[:current_user] do %>
+<section class="mt-10">
+  <.header>
+    Comments
+  </.header>
+
+  <.simple_form :let={f} for={@comment_changeset} action={~p"/comments"}>
+    <.input field={f[:user_id]} type="hidden" value={@current_user.id} />
+    <.input field={f[:post_id]} type="hidden" value={@post.id} />
+    <.input field={f[:content]} type="text" label="Write a Comment" />
+    <:actions>
+      <.button>Comment</.button>
+    </:actions>
+  </.simple_form>
+</section>
+<% end %>
+
+<section>
+  <%= if length(@post.comments) > 0 do %>
+    <.table id="posts" rows={@post.comments}>
+      <:col :let={comment} label="Comments">
+        <%= if assigns[:current_user] && comment.user_id === @current_user.id do %>
+          <span id={"comment-content-#{comment.id}"}>
+            <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span> 
+          </span>
+          <.form
+            :let={f}
+            id={"edit-comment-#{comment.id}"}
+            hidden
+            for={%{}}
+            method="put"
+            as={:comment}
+            action={~p"/comments/#{comment.id}"}
+          >
+            <.input required field={f[:content]} type="text" value={comment.content} />
+          </.form>
+        <% else %>
+          <span id={"comment-content-#{comment.id}"}>
+            <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span> 
+          </span>
+        <% end %>
+      </:col>
+      <:action :let={comment}>
+        <%= if assigns[:current_user] && comment.user_id === @current_user.id do %>
+          <.button phx-click={
+            JS.toggle(to: "#edit-comment-#{comment.id}")
+            |> JS.toggle(to: "#comment-content-#{comment.id}")
+          }>
+            Edit
+          </.button>
+        <% end %>
+      </:action>
+      <:action :let={comment}>
+        <%= if assigns[:current_user] && comment.user_id === @current_user.id do %>
+          <.link href={~p"/comments/#{comment.id}"} method="delete" data-confirm="Are you sure?">
+            Delete
+          </.link>
+        <% end %>
+      </:action>
+    </.table>
+  <% else %>
+    <p>There is no Comments at moment!</p>
+  <% end %>
+</section>

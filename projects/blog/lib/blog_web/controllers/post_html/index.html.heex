@@ -7,18 +7,35 @@
   </:actions>
 </.header>
 
+<h4 class="text-4xl text-orange-500 font-semibold">Search Posts</h4>
+<.simple_form :let={f} for={%{}} method="get" action={~p"/posts"}>
+  <.input field={f[:title]} type="search" />
+  <:actions>
+    <.button>Search</.button>
+  </:actions>
+</.simple_form>
+
+<.greet messenger="Chrisna"/>
+
 <.table id="posts" rows={@posts} row_click={&JS.navigate(~p"/posts/#{&1}")}>
   <:col :let={post} label="Title"><%= post.title %></:col>
-  <:col :let={post} label="Body"><%= post.body %></:col>
-  <:action :let={post}>
-    <div class="sr-only">
-      <.link navigate={~p"/posts/#{post}"}>Show</.link>
-    </div>
-    <.link navigate={~p"/posts/#{post}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={post}>
-    <.link href={~p"/posts/#{post}"} method="delete" data-confirm="Are you sure?">
-      Delete
-    </.link>
-  </:action>
+  <:col :let={post} label="Content"><%= post.content |> String.slice(0..25) %> ...</:col>
+  <:col :let={post} label="Published On"><%= post.published_on %></:col>
+    <:action :let={post}>
+      <%= if assigns[:current_user] && post.user_id === @current_user.id do %>
+        <div class="sr-only">
+          <.link navigate={~p"/posts/#{post}"}>Show</.link>
+        </div>
+        <.link navigate={~p"/posts/#{post}/edit"}>Edit</.link>
+      <% else %>
+        <.link navigate={~p"/posts/#{post}"}>Show</.link>
+      <% end %>
+    </:action>
+    <:action :let={post}>
+      <%= if assigns[:current_user] && post.user_id === @current_user.id do %>
+        <.link href={~p"/posts/#{post}"} method="delete" data-confirm="Are you sure?">
+          Delete
+        </.link>
+      <% end %>
+    </:action>
 </.table>
