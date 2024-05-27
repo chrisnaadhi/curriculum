@@ -43,7 +43,8 @@
       <:col :let={comment} label="Comments">
         <%= if assigns[:current_user] && comment.user_id === @current_user.id do %>
           <span id={"comment-content-#{comment.id}"}>
-            <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span> 
+            <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span>
+            <p class="text-xs text-blue-200 italic"><%= comment.inserted_at %></p>
           </span>
           <.form
             :let={f}
@@ -58,7 +59,8 @@
           </.form>
         <% else %>
           <span id={"comment-content-#{comment.id}"}>
-            <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span> 
+            <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span>
+            <p class="text-xs text-blue-200 italic"><%= comment.inserted_at %></p> 
           </span>
         <% end %>
       </:col>
