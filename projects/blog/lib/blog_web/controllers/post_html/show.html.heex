@@ -42,9 +42,9 @@
     <.table id="posts" rows={@post.comments}>
       <:col :let={comment} label="Comments">
         <%= if assigns[:current_user] && comment.user_id === @current_user.id do %>
-          <span id={"comment-content-#{comment.id}"}>
+          <span id={"comment-content-#{comment.id}"} title={"#{comment.inserted_at |> get_indonesia_date()}"}>
             <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span>
-            <p class="text-xs text-blue-200 italic"><%= comment.inserted_at %></p>
+            <p class="text-xs text-gray-400 italic"><%= comment.inserted_at |> get_relative_date() %></p>
           </span>
           <.form
             :let={f}
@@ -58,9 +58,9 @@
             <.input required field={f[:content]} type="text" value={comment.content} />
           </.form>
         <% else %>
-          <span id={"comment-content-#{comment.id}"}>
+          <span id={"comment-content-#{comment.id}"} title={"#{comment.inserted_at |> get_indonesia_date()}"}>
             <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span>
-            <p class="text-xs text-blue-200 italic"><%= comment.inserted_at %></p> 
+            <p class="text-xs text-gray-400 italic"><%= comment.inserted_at |> get_relative_date() %></p> 
           </span>
         <% end %>
       </:col>

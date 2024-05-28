@@ -1,4 +1,5 @@
 defmodule BlogWeb.PostHTML do
+  use Timex
   use BlogWeb, :html
 
   embed_templates("post_html/*")
@@ -19,5 +20,19 @@ defmodule BlogWeb.PostHTML do
     <h2 class="text-3xl">Hello World, from <%= @messenger %>!</h2>
     <p>Today was <%= @today %></p>
     """
+  end
+
+  def get_relative_date(date) do
+    Timex.Format.DateTime.Formatters.Relative.format!(
+      Timex.shift(date, seconds: 0),
+      "{relative}"
+    )
+  end
+
+  def get_indonesia_date(date) do
+    parsed_date = Timex.parse!(date, "{ISO:Extended:Z}")
+
+    Timex.Timezone.convert(parsed_date, "Asia/Jakarta")
+    |> Timex.format!("{WDfull}, {D} {Mfull} {YYYY} {h24}:{m}")
   end
 end
