@@ -29,10 +29,8 @@ defmodule BlogWeb.PostHTML do
     )
   end
 
-  def get_indonesia_date(date) do
-    parsed_date = Timex.parse!(date, "{ISO:Extended:Z}")
-
-    Timex.Timezone.convert(parsed_date, "Asia/Jakarta")
+  def get_indonesia_date(datetime) do
+    Timex.Timezone.convert(datetime, "Asia/Jakarta")
     |> Timex.format!("{WDfull}, {D} {Mfull} {YYYY} {h24}:{m}")
   end
 end
