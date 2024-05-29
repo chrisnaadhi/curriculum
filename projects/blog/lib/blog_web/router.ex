@@ -75,6 +75,14 @@ defmodule BlogWeb.Router do
     get("/users/settings", UserSettingsController, :edit)
     put("/users/settings", UserSettingsController, :update)
     get("/users/settings/confirm_email/:token", UserSettingsController, :confirm_email)
+
+    live_session :require_authenticated_user,
+      on_mount: [{BlogWeb.UserAuth, :ensure_authenticated}] do
+      live("/links", LinkLive.Index)
+      live("/links/new", LinkLive.New)
+
+      live("/links/:id/edit", LinkLive.Index, :edit)
+    end
   end
 
   scope "/", BlogWeb do

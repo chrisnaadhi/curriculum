@@ -1,0 +1,17 @@
+<section>
+  <h1 class="grow text-2xl font-bold">New Link!</h1>
+
+  <div class="mt-6">
+    <.form for={@form} class="flex items-end gap-2" phx-submit="submit">
+      <div class="grow">
+        <.input field={@form[:url]} type="text" label="URL" />
+      </div>
+
+      <div>
+        <button class="bg-black border border-black hover:bg-gray-700 text-white font-bold py-2 px-3 rounded-md">Create</button>
+      </div>
+    </.form>
+  </div>
+
+  <.back navigate={~p"/links"}>Back</.back>
+</section>

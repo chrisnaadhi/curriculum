@@ -1,6 +1,7 @@
 <.header>
   Post <%= @post.id %>
   <:subtitle>This is a post record from your database.</:subtitle>
+
   <:actions>
     <%= if assigns[:current_user] && @post.user_id === @current_user.id do %>
       <.link href={~p"/posts/#{@post}/edit"}>
@@ -9,32 +10,38 @@
     <% end %>
   </:actions>
 </.header>
- <p class="text-gray-400 text-sm italic">Created by <%= @post.user.username %></p>
+
+<p class="text-gray-400 text-sm italic">Created by <%= @post.user.username %></p>
+
 <.list>
   <:item title="Title"><%= @post.title %></:item>
+
   <:item title="Content"><%= @post.content %></:item>
+
   <:item title="Published On"><%= @post.published_on %></:item>
+
   <:item title="Visibility"><%= @post.visibility %></:item>
+
   <:item title="Creator"><%= @post.user.username %></:item>
 </.list>
 
 <.back navigate={~p"/posts"}>Back to posts</.back>
 
 <%= if assigns[:current_user] do %>
-<section class="mt-10">
-  <.header>
-    Comments
-  </.header>
+  <section class="mt-10">
+    <.header>
+      Comments
+    </.header>
 
-  <.simple_form :let={f} for={@comment_changeset} action={~p"/comments"}>
-    <.input field={f[:user_id]} type="hidden" value={@current_user.id} />
-    <.input field={f[:post_id]} type="hidden" value={@post.id} />
-    <.input field={f[:content]} type="text" label="Write a Comment" />
-    <:actions>
-      <.button>Comment</.button>
-    </:actions>
-  </.simple_form>
-</section>
+    <.simple_form :let={f} for={@comment_changeset} action={~p"/comments"}>
+      <.input field={f[:user_id]} type="hidden" value={@current_user.id} />
+      <.input field={f[:post_id]} type="hidden" value={@post.id} />
+      <.input field={f[:content]} type="text" label="Write a Comment" />
+      <:actions>
+        <.button>Comment</.button>
+      </:actions>
+    </.simple_form>
+  </section>
 <% end %>
 
 <section>
@@ -42,10 +49,17 @@
     <.table id="posts" rows={@post.comments}>
       <:col :let={comment} label="Comments">
         <%= if assigns[:current_user] && comment.user_id === @current_user.id do %>
-          <span id={"comment-content-#{comment.id}"} title={comment.inserted_at |> get_indonesia_date()}>
-            <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span>
-            <p class="text-xs text-gray-400 italic"><%= comment.inserted_at |> get_relative_date() %></p>
+          <span
+            id={"comment-content-#{comment.id}"}
+            title={comment.inserted_at |> get_indonesia_date()}
+          >
+            <%= comment.content %> -
+            <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span>
+            <p class="text-xs text-gray-400 italic">
+              <%= comment.inserted_at |> get_relative_date() %>
+            </p>
           </span>
+
           <.form
             :let={f}
             id={"edit-comment-#{comment.id}"}
@@ -58,12 +72,19 @@
             <.input required field={f[:content]} type="text" value={comment.content} />
           </.form>
         <% else %>
-          <span id={"comment-content-#{comment.id}"} title={comment.inserted_at |> get_indonesia_date()}>
-            <%= comment.content %> - <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span>
-            <p class="text-xs text-gray-400 italic"><%= comment.inserted_at |> get_relative_date() %></p>
+          <span
+            id={"comment-content-#{comment.id}"}
+            title={comment.inserted_at |> get_indonesia_date()}
+          >
+            <%= comment.content %> -
+            <span class="text-xs text-gray-400 italic">by <%= comment.user.username %></span>
+            <p class="text-xs text-gray-400 italic">
+              <%= comment.inserted_at |> get_relative_date() %>
+            </p>
           </span>
         <% end %>
       </:col>
+
       <:action :let={comment}>
         <%= if assigns[:current_user] && comment.user_id === @current_user.id do %>
           <.button phx-click={
@@ -74,6 +95,7 @@
           </.button>
         <% end %>
       </:action>
+
       <:action :let={comment}>
         <%= if assigns[:current_user] && comment.user_id === @current_user.id do %>
           <.link href={~p"/comments/#{comment.id}"} method="delete" data-confirm="Are you sure?">

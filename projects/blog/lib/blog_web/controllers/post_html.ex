@@ -18,6 +18,7 @@ defmodule BlogWeb.PostHTML do
 
     ~H"""
     <h2 class="text-3xl">Hello World, from <%= @messenger %>!</h2>
+
     <p>Today was <%= @today %></p>
     """
   end
