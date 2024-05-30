@@ -4,7 +4,7 @@ defmodule Blog.Links.Link do
 
   schema "links" do
     field(:url, :string)
-    belongs_to(:user, Blog.Users.User)
+    belongs_to(:user, Blog.Accounts.User)
 
     timestamps(type: :utc_datetime)
   end
